@@ -20,7 +20,7 @@ public class ArrayHelper implements Runnable{
 	private int size;
 	private List<Integer> array_list;
 	private Random random;
-	private Integer max_value = 300;
+	private Integer max_value = 500;
 	private int i_iterator = 0;
 	private int j_iterator = 0;
 
@@ -36,47 +36,36 @@ public class ArrayHelper implements Runnable{
 	public void drawArray(Graphics g, Dimension size){
 		//System.out.println(g.getClipBounds().width + " " + g.getClipBounds().height);
 		int height = size.height*2/3;
+		int factor = 1;
+		int max_iterate = this.size;
 		double step = (double)size.width/this.size;
-		for(int i = 0; i < this.size; ++i){
+		if (step < 1){
+			step = 1;
+			max_iterate = size.width;
+			factor = this.size/size.width;
+		}
+		for(int i = 0; i < max_iterate; ++i){
 			int x = (int)(i*step);
-			g.drawRect(x, height - this.array_list.get(i), 1, this.array_list.get(i));
+			if (i*factor < this.size)
+				g.drawRect(x, height - this.array_list.get(i*factor), 1, this.array_list.get(i*factor));
 		}
-	}
-	
-	public void bubbleSortStep(){
-		
-		if (this.i_iterator < this.size){
-			//System.out.println("---");
-			//this.array_list.set(i_iterator, this.array_list.get(i_iterator)/2);
-			if(this.array_list.get(i_iterator) < this.array_list.get(j_iterator)){
-				int v = this.array_list.get(i_iterator);
-				this.array_list.set(i_iterator, this.array_list.get(j_iterator));
-				this.array_list.set(j_iterator, v);
-				
-			}
-			++j_iterator;
-				//System.out.println(j_iterator);
-				if (j_iterator > i_iterator){
-					++i_iterator;
-					j_iterator = 0;
-				}
-		}
-	}
-	
-	public void bubbleSort(){
-		
-		
 	}
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		for(int i = 0; i < this.size; ++i){
-			for(int j = 0; j < i; ++j){
-				if(this.array_list.get(i) < this.array_list.get(j)){
-					int v = this.array_list.get(i);
-					this.array_list.set(i, this.array_list.get(j));
-					this.array_list.set(j, v);
+		int N = array_list.size();
+		int h = 1;
+		while (h < N/3) {
+			h = 3*h + 1;
+		}
+		while (h >= 1) {
+			for(int i = h; i < N; ++i){
+				for(int j = i; j >= h && (this.array_list.get(j) < this.array_list.get(j - h)); j -= h){
+
+					int v = this.array_list.get(j);
+					this.array_list.set(j, this.array_list.get(j - h));
+					this.array_list.set(j - h, v);
 					try {
 						Thread.sleep(1);
 					} catch (InterruptedException e) {
@@ -85,6 +74,7 @@ public class ArrayHelper implements Runnable{
 					}
 				}
 			}
+			h = h/3;
 		}
 	}
 }

@@ -22,10 +22,10 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-		array_helper = new ArrayHelper(200);
+		array_helper = new ArrayHelper(2000);
 		jPanel1.setArrayHelper(array_helper);
-		Thread thread = new Thread(array_helper);
-		Timer timer = new Timer(1, new ActionListener() {
+		//thread = new Thread(array_helper);
+		Timer timer = new Timer(100, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) { //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -35,7 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
 			}
 		});
 		timer.start();
-		thread.start();
+		
     }
 
     /**
@@ -52,7 +52,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Redraw");
+        jButton1.setText("Start");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -90,7 +90,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-		jPanel1.repaint();
+    	
+    	//thread.stop();
+    	array_helper = new ArrayHelper(2000);
+    	jPanel1.setArrayHelper(array_helper);
+    	thread = new Thread(array_helper);
+		thread.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -130,7 +135,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 	
 	private ArrayHelper array_helper;
-
+	private Thread thread;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     /*
