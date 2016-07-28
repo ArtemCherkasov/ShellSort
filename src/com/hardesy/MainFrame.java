@@ -8,6 +8,7 @@ package com.hardesy;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Timer;
 
 /**
@@ -23,15 +24,18 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
 		array_helper = new ArrayHelper(200);
 		jPanel1.setArrayHelper(array_helper);
+		Thread thread = new Thread(array_helper);
 		Timer timer = new Timer(1, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) { //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-				array_helper.bubbleSortStep();
+				
 				jPanel1.repaint();
+
 			}
 		});
 		timer.start();
+		thread.start();
     }
 
     /**

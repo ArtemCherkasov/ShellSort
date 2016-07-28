@@ -16,7 +16,7 @@ import java.util.Random;
  *
  * @author artemcherkasov
  */
-public class ArrayHelper {
+public class ArrayHelper implements Runnable{
 	private int size;
 	private List<Integer> array_list;
 	private Random random;
@@ -60,6 +60,31 @@ public class ArrayHelper {
 					++i_iterator;
 					j_iterator = 0;
 				}
+		}
+	}
+	
+	public void bubbleSort(){
+		
+		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < this.size; ++i){
+			for(int j = 0; j < i; ++j){
+				if(this.array_list.get(i) < this.array_list.get(j)){
+					int v = this.array_list.get(i);
+					this.array_list.set(i, this.array_list.get(j));
+					this.array_list.set(j, v);
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 	}
 }
