@@ -20,9 +20,10 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
+	private final Integer max_element = 2000;
     public MainFrame() {
         initComponents();
-		array_helper = new ArrayHelper(2000);
+		array_helper = new ArrayHelper(max_element);
 		jPanel1.setArrayHelper(array_helper);
 		//thread = new Thread(array_helper);
 		Timer timer = new Timer(100, new ActionListener() {
@@ -92,7 +93,7 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     	
     	//thread.stop();
-    	array_helper = new ArrayHelper(2000);
+    	array_helper = new ArrayHelper(max_element);
     	jPanel1.setArrayHelper(array_helper);
     	thread = new Thread(array_helper);
 		thread.start();

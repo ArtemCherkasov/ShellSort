@@ -59,6 +59,7 @@ public class ArrayHelper implements Runnable{
 		while (h < N/3) {
 			h = 3*h + 1;
 		}
+		int speed_index = 0;
 		while (h >= 1) {
 			for(int i = h; i < N; ++i){
 				for(int j = i; j >= h && (this.array_list.get(j) < this.array_list.get(j - h)); j -= h){
@@ -66,15 +67,24 @@ public class ArrayHelper implements Runnable{
 					int v = this.array_list.get(j);
 					this.array_list.set(j, this.array_list.get(j - h));
 					this.array_list.set(j - h, v);
-					try {
-						Thread.sleep(1);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
+				}
+				++speed_index;
+				if (speed_index < 5000){
+					speed_index = 0;
+					sleep();
 				}
 			}
 			h = h/3;
 		}
+	}
+	
+	private void sleep(){
+		try {
+			Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 }
